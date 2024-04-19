@@ -1,7 +1,12 @@
 ---
 title: "About this site"
 description: |
-  Some additional details about the website
+  Ce document présente XXXX
+output :
+  distill::distill_article:
+    toc : true
+    toc_depth : 3
+    toc_float : true
 ---
 
 ```{r setup, include=FALSE}
@@ -119,16 +124,13 @@ D$Q14.H.jeu <- ifelse(
 Gerland <- subset(D, Q0.A.salle == "gerland")
 ```
 
-## Explication du document 
-Ce document présente les statistiques descriptives de la salle d'escalade de Gerland en suivant les thèmes suivants : la socio-démographie, la satisfaction, l'attachement, l'identification, la pratique dans la salle, et les types de grimpeurs.
-
 ```{r, echo=FALSE}
 library(DT)
 ```
 
-## La socio démographie
-### Le Sexe
-*Vous êtes ?*
+## XYZ
+### AABB
+*Question ?*
 
 ```{r}
 sexe_sans_pondération <- round(prop.table(table(Gerland$Q30.sexe)) * 100, 1)
@@ -141,79 +143,6 @@ sexe_tableau <- data.frame(
 sexe_tableau <- sexe_tableau[, -3]
 # Utilisez kable pour formater le tableau
 sexe_tableau %>%
-  knitr::kable(caption = "Tableau des pourcentages par sexe avec et sans pondération", col.names = c("Sexe", "Sans pondération", "Avec pondération")) %>%
+  knitr::kable(caption = "Tableau WWWW", col.names = c("ZZ", "YY", "XX")) %>%
   kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
-```
-
-### L'Age des grimpeurs
-*Votre année de naissance :*
-
-Dans ans une enquête, il est préférable de demander l'année de naissance plutôt que l'âge afin d'obtenir de meilleurs taux de réponse. 
-Néanmoins, pour une meilleure lisibilité des données, nous avons recodé les années de naissance en **âge**.
-
-```{r}
-# Calcul des moyennes avec et sans pondération
-age_sans_pondération <- round(mean(Gerland$Q31.B.age, na.rm = TRUE),0)
-age_avec_pondération <- round(wtd.mean(Gerland$Q31.B.age, weight = Gerland$poids),0)
-# Création d'un dataframe pour le tableau
-age_moyennes <- data.frame(
-  "Sans pondération" = age_sans_pondération,
-  "Avec pondération" = age_avec_pondération
-)
-# Utilisation de kable pour formater le tableau
-age_moyennes %>%
-  knitr::kable(caption = "Tableau des moyennes par âge avec et sans pondération", col.names = c("Sans pondération", "Avec pondération")) %>%
-  kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
-```
-
-### Les niveaux de diplôme
-*Quel est le diplôme le plus élevé que vous possédez ?*
-
-```{r}
-Gerland$Q32.diplome <- with(Gerland, factor(Q32.diplome, levels=c('Bac +5 et plus','Bac +4','Bac +3','Bac +2','Baccalauréat', 'CAP, BEP...','Pas de diplôme')))
-diplome_sans_pondération <- round(prop.table(table(Gerland$Q32.diplome))*100,1)
-diplome_avec_pondération <- round(prop.table(wtd.table(Gerland$Q32.diplome,weight=Gerland$poids))*100,1)
-diplome_tableau <- data.frame(
-  "Sans pondération" = diplome_sans_pondération,
-  "Avec pondération" = diplome_avec_pondération
-)
-# Supprimez la colonne "Diplôme" que vous ne souhaitez pas afficher (par exemple, la troisième colonne)
-diplome_tableau <- diplome_tableau[, -3]
-# Utilisez kable pour formater le tableau
-diplome_tableau %>%
-  datatable(
-    caption = "Tableau des pourcentages suivant le niveau de diplôme avec et sans pondération",
-    colnames = c("Diplôme", "Sans pondération", "Avec pondération"),
-    options = list(
-      dom = 'Bf',
-      pageLength = nrow(diplome_tableau),
-      rownames = FALSE
-    )
-  )
-```
-
-### La situation
-*Quelle est votre situation ?*
-
-```{r}
-Gerland$Q33.situation <- with(Gerland, factor(Q33.situation, levels=c("Actif", "Étudiant, lycéen", "Chomeur", "Retraité", "Invalidité")))
-situation_sans_pondération <- round(prop.table(table(Gerland$Q33.situation))*100,1)
-situation_avec_pondération <- round(prop.table(wtd.table(Gerland$Q33.situation,weight=Gerland$poids))*100,1)
-situation_tableau <- data.frame(
-  "Sans pondération" = situation_sans_pondération,
-  "Avec pondération" = situation_avec_pondération
-)
-# Supprimez la colonne "Situation" que vous ne souhaitez pas afficher (par exemple, la troisième colonne)
-situation_tableau <- situation_tableau[, -3]
-# Utilisez kable pour formater le tableau
-situation_tableau %>%
-  datatable(
-    caption = "Tableau des pourcentages suivant la situation avec et sans pondération",
-    colnames = c("Situation", "Sans pondération", "Avec pondération"),
-    options = list(
-      dom = 'Bf',
-      pageLength = nrow(situation_tableau),
-      rownames = FALSE
-    )
-  )
 ```
