@@ -3,6 +3,7 @@ title: "buliding website with Distill"
 description: |
   buliding website with Distill
 output_dir: "docs"
+theme: Cumetric-theme.css
 navbar:
   right:
     - text: "Home"
